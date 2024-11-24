@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import Stripe from 'stripe';
 import exphbs from 'express-handlebars'; 
+import {STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY} from '@env';
 
 // const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
@@ -14,12 +15,14 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
+const stripe = Stripe(STRIPE_SECRET_KEY);
+
 app.use(cors());
 
 app.use(bodyParser.json());
 
 app.post('/payment-sheet', async (req, res) => {
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    
     const amount = req.body.amount;
     const customer = await stripe.customers.create();
     const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -46,7 +49,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
+      publishableKey: STRIPE_PUBLISHABLE_KEY
     });
   });
 
