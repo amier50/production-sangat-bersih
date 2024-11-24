@@ -8,7 +8,9 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import exphbs from 'express-handlebars'; 
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+import {STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY} from '@env';
+
+const stripe = Stripe(STRIPE_SECRET_KEY);
 
 const PORT = process.env.PORT || 8080;
 
@@ -45,7 +47,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
+      publishableKey: STRIPE_PUBLISHABLE_KEY
     });
   });
 
