@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/payment-sheet', async (req, res) => {
-    const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
     const amount = req.body.amount;
     const customer = await stripe.customers.create();
     const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -46,7 +46,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     });
   });
 
