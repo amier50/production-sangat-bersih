@@ -8,7 +8,7 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import exphbs from 'express-handlebars'; 
 
-const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
+// const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,6 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/payment-sheet', async (req, res) => {
+    const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
     const amount = req.body.amount;
     const customer = await stripe.customers.create();
     const ephemeralKey = await stripe.ephemeralKeys.create(
