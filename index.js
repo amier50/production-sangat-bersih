@@ -8,7 +8,7 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import exphbs from 'express-handlebars'; 
 
-const stripe = Stripe('sk_test_51QNAcdADybCsiviUKEGor6qSHevqb5Np7mHjDwrhYrjTcPMWoyu8Bfis196HBj0KD9dNzvxSJpC1nEsEtF6Bc7oL00nmHIXZRx');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PORT = process.env.PORT || 8080;
 
@@ -45,7 +45,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: 'pk_test_51QNAcdADybCsiviUzmvqbpcFJL94q5Kt5z22fPxT20caX6TiTWGYbQ8TxEqJ6qoFVuIlhfid7ubuX2tcofcPBYFb00sRhlQP7t'
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     });
   });
 
