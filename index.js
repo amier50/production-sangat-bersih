@@ -8,8 +8,6 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import exphbs from 'express-handlebars'; 
 
-import {REACT_APP_STRIPE_SECRET_KEY, REACT_APP_STRIPE_PUBLISHABLE_KEY} from '@env';
-
 const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 const PORT = process.env.PORT || 8080;
