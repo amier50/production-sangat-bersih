@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = Stripe('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');
 
 app.use(cors());
 
@@ -48,7 +48,7 @@ app.post('/payment-sheet', async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
+      publishableKey: 'pk_live_51QNAcdADybCsiviU1MyGisZXdaHihAMIRt3njBhdPt3Q1U0k4wUdqO97EdPPrZkKp7H96SIhDc8f0jQvL6PWa6Gu00redthzen'
     });
   });
 
