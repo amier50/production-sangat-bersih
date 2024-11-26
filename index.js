@@ -7,9 +7,10 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import Stripe from 'stripe';
 
-// const stripe = Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
-const PORT = process.env.PORT || 8080;
+
+
+const PORT = 8080;
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/payment-sheet', async (req, res) => {
-    const stripe = Stripe(process.env.EXPO_PUBLIC_STRIPE_SECRET_KEY);
+    // Use an existing Customer ID if this is a returning customer.
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
     const amount = req.body.amount;
     const customer = await stripe.customers.create();
     const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -52,5 +54,3 @@ app.post('/payment-sheet', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running at Port ${PORT}`);
 })
-
-//exports.app = functions.https.onRequest(app);
