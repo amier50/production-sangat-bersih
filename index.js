@@ -10,7 +10,7 @@ import Stripe from 'stripe';
 
 
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 app.post('/payment-sheet', async (req, res) => {
     // Use an existing Customer ID if this is a returning customer.
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = Stripe(process.env.EXPO_PUBLIC_STRIPE_SECRET_KEY);
     const amount = req.body.amount;
     const customer = await stripe.customers.create();
     const ephemeralKey = await stripe.ephemeralKeys.create(
